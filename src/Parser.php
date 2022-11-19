@@ -19,8 +19,8 @@ class Parser
    * @var string[]
    */
   protected array $patterns = [
-    // Fully formed names
-    "/(?<title>\w+)\.?\s+?(?<firstName>\w+)\s+?(?<lastName>\w+)/",
+    // Full names, with an initialed or full first name
+    "/(?<title>\w+)\.?\s+?(?<firstName>\w+)\.?\s+?(?<lastName>\w+)/",
   ];
 
   /**
@@ -37,7 +37,14 @@ class Parser
       }
 
       ["title" => $title, "firstName" => $firstName, "lastName" => $lastName] = $matches;
-      return new Person($title, $firstName, $firstName[0], $lastName);
+
+      // Derive initial from first name
+      $initial = $firstName[0] ?? null;
+      if (mb_strlen($firstName) == 1) {
+        $firstName = null;
+      }
+
+      return new Person($title, $firstName, $initial, $lastName);
     }
 
     return null;
