@@ -19,8 +19,8 @@ class Parser
    * @var string[]
    */
   protected array $patterns = [
-    // Full names, with an initialed or full first name
-    "/(?<title>\w+)\.?\s+?(?<firstName>\w+)\.?\s+?(?<lastName>\w+)/",
+    // Single name where first name is optional or initialed
+    "/(?<title>\w+)\.?\s+?((?<firstName>\w+)\.?\s+)?(?<lastName>\w+)/",
   ];
 
   /**
@@ -40,7 +40,7 @@ class Parser
 
       // Derive initial from first name
       $initial = $firstName[0] ?? null;
-      if (mb_strlen($firstName) == 1) {
+      if (mb_strlen($firstName) <= 1) {
         $firstName = null;
       }
 
