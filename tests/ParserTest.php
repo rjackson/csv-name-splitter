@@ -46,6 +46,9 @@ class ParserTest extends TestCase
       "Compound surnames, variation 1 (dash)" => ["Mr Smith-Jones", new Person("Mr", null, null, "Smith-Jones")],
       "Compound surnames, variation 2 (endash)" => ["Mr Smith–Jones", new Person("Mr", null, null, "Smith–Jones")],
       "Compound surnames, variation 3 (emdash)" => ["Mr Smith—Jones", new Person("Mr", null, null, "Smith—Jones")],
+      "Ignore middle names, variation 1" => ["Mr John Edward Smith", new Person("Mr", "John", "J", "Smith")],
+      "Ignore middle names, variation 2" => ["Mr John E Smith", new Person("Mr", "John", "J", "Smith")],
+      "Ignore middle names, variation 3" => ["Mr John E. Smith", new Person("Mr", "John", "J", "Smith")],
     ];
   }
 

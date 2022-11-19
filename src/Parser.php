@@ -19,8 +19,12 @@ class Parser
    * @var string[]
    */
   protected array $patterns = [
-    // Single name where first name is optional or initialed
-    "/(?<title>\w+)\.?\s+?((?<firstName>\w+)\.?\s+)?(?<lastName>[\w\-–—]+)/",
+    // Single name where
+    // - title is mandatory
+    // - firstName is optional, and either a full word or initialied
+    // - middleName is optional, and either a full word or initialied
+    // - lastName is mandatory
+    "/^(?<title>\w+)\.?\s+?((?<firstName>\w+)\.?\s+)?((?<middleName>\w+)\.?\s+)?(?<lastName>[\w\-–—]+)$/",
   ];
 
   /**
@@ -30,12 +34,15 @@ class Parser
    */
   function parse(string $input): ?Person
   {
+    $input = trim($input);
+
     foreach ($this->patterns as $pattern) {
       preg_match($pattern, $input, $matches);
       if (empty($matches)) {
         continue;
       }
 
+      // middleName is deliberately not extracted because we don't need it
       ["title" => $title, "firstName" => $firstName, "lastName" => $lastName] = $matches;
 
       // Derive initial from first name
