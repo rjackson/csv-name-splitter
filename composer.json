@@ -1,0 +1,19 @@
+{
+    "name": "rjackson/csv-name-parser",
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Rjackson\\CsvNameParser\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rob Jackson",
+            "email": "rob@rjackson.me"
+        }
+    ],
+    "require": {}
+}

@@ -1,0 +1,15 @@
+{
+  "name": "csv-name-parser",
+  "version": "1.0.0",
+  "description": "This project is built to fulfil a technical challenge, rather than to be an independent project in of itself.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.19.2",
+    "prettier": "^2.7.1"
+  }
+}
