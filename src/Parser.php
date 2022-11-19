@@ -18,6 +18,36 @@ class Parser
    * - lastName is mandatory
    */
   protected string $namePattern = "/^(?<title>\w+)\.?\s+?((?<firstName>\w+)\.?\s+)?((?<middleName>\w+)\.?\s+)?(?<lastName>[\w\-–—]+)$/";
+
+  /**
+   * Parse a CSV of free-text names and resolve into Person records
+   *
+   * @param string $filename
+   * @return Person[]
+   */
+  function parseCsv(string $filename): array
+  {
+    $f = fopen($filename, "r");
+    if ($f === false) {
+      return [];
+    }
+
+    $persons = [];
+    try {
+      while (($row = fgetcsv($f)) !== false) {
+        [$name] = $row;
+        if (!$name) {
+          continue;
+        }
+        array_push($persons, ...$this->parse($name) ?: []);
+      }
+    } finally {
+      fclose($f);
+    }
+
+    return $persons;
+  }
+
   /**
    * Parse free-text input and try to extract a Person record from it.
    *

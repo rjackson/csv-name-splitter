@@ -51,6 +51,24 @@ class ParserTest extends TestCase
     $this->assertNull($person);
   }
 
+  /**
+   * @covers Parser::parseCsv
+   */
+  public function testParseCsv(): void
+  {
+    $persons = $this->parser->parseCsv(__DIR__ . "/fixtures/empty.csv");
+    $this->assertEmpty($persons);
+
+    $persons = $this->parser->parseCsv(__DIR__ . "/fixtures/example.csv");
+    $this->assertCount(18, $persons);
+
+    // Some hardcoded spot checks
+    $this->assertEquals($persons[0], new Person("Mr", "John", "J", "Smith"));
+    $this->assertEquals($persons[5], new Person("Mrs", null, null, "Smith"));
+    $this->assertEquals($persons[10], new Person("Mr", "John", "J", "Doe"));
+    $this->assertEquals($persons[17], new Person("Mr", null, "F", "Fredrickson"));
+  }
+
   public function parseSingleDataProvider(): array
   {
     return [
