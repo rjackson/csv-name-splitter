@@ -20,7 +20,7 @@ class Parser
    */
   protected array $patterns = [
     // Single name where first name is optional or initialed
-    "/(?<title>\w+)\.?\s+?((?<firstName>\w+)\.?\s+)?(?<lastName>\w+)/",
+    "/(?<title>\w+)\.?\s+?((?<firstName>\w+)\.?\s+)?(?<lastName>[\w\-–—]+)/",
   ];
 
   /**
