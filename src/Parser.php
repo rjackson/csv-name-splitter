@@ -11,12 +11,35 @@ use Rjackson\CsvNameParser\Data\Person;
 class Parser
 {
   /**
+   * Patterns against which to match names, from most to least specific
+   *
+   * We could try to write a mega-regex to do this, but mulitple simpler patterns
+   * will be easier to maintain.
+   *
+   * @var string[]
+   */
+  protected array $patterns = [
+    // Fully formed names
+    "/(?<title>\w+)\.?\s+?(?<firstName>\w+)\s+?(?<lastName>\w+)/",
+  ];
+
+  /**
    * Parse free-text input and try to extract a Person record from it.
    *
    * At present, this only supports Western name formats.
    */
   function parse(string $input): ?Person
   {
+    foreach ($this->patterns as $pattern) {
+      preg_match($pattern, $input, $matches);
+      if (empty($matches)) {
+        continue;
+      }
+
+      ["title" => $title, "firstName" => $firstName, "lastName" => $lastName] = $matches;
+      return new Person($title, $firstName, $firstName[0], $lastName);
+    }
+
     return null;
   }
 }
