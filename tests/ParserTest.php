@@ -74,6 +74,18 @@ class ParserTest extends TestCase
     return [
       // Maintain compatibility with all single names
       ...array_map(fn($entry) => [$entry[0], [$entry[1]]], $this->parseSingleDataProvider()),
+      "Separate names" => [
+        "Mr Bob Jones & Mrs Bobbie Smith",
+        [new Person("Mr", "Bob", "B", "Jones"), new Person("Mrs", "Bobbie", "B", "Smith")],
+      ],
+      "Separate titles, but same first names?" => [
+        "Mr and Mrs Alex Smith",
+        [new Person("Mr", "Alex", "A", "Smith"), new Person("Mrs", "Alex", "A", "Smith")],
+      ],
+      "Separate titles, surnames only" => [
+        "Prof and Dr. Wood",
+        [new Person("Prof", null, null, "Wood"), new Person("Dr", null, null, "Wood")],
+      ],
     ];
   }
 

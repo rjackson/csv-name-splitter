@@ -36,13 +36,19 @@ class Parser
    */
   function parse(string $input): array|null
   {
-    $person = $this->parseSingle($input);
+    return array_reduce(
+      $this->extractNames($input),
+      function ($parsedNames, $name) {
+        $person = $this->parseSingle($name);
 
-    if (!$person instanceof Person) {
-      return null;
-    }
+        if ($person instanceof Person) {
+          $parsedNames[] = $person;
+        }
 
-    return [$person];
+        return $parsedNames;
+      },
+      null
+    );
   }
 
   /**
@@ -72,5 +78,44 @@ class Parser
     }
 
     return null;
+  }
+
+  /**
+   * Parse free-text input, and split it into multiple names if it contains conjunctions
+   *
+   * @return string[]
+   */
+  protected function extractNames(string $input): array
+  {
+    $names = [];
+
+    // Check for any conjunction (skipping cost of regex as there aren't many to cover)
+    foreach ([" and ", " & "] as $conjunction) {
+      if (!str_contains($input, $conjunction)) {
+        continue;
+      }
+
+      [$left, $right] = explode($conjunction, $input, 2);
+
+      // If the left segment contains spaces, assume its a full name.
+      // Kind of naive, but works for our test cases
+      if (str_contains($left, " ")) {
+        $names[] = $left;
+        $names[] = $right;
+      }
+
+      // Otherwise assume we split on a title.
+      else {
+        [$right, $restOfName] = explode(" ", $right, 2);
+        $names[] = sprintf("%s %s", $left, $restOfName);
+        $names[] = sprintf("%s %s", $right, $restOfName);
+      }
+    }
+
+    if (empty($names)) {
+      $names[] = $input;
+    }
+
+    return $names;
   }
 }
