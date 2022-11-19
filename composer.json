@@ -15,5 +15,7 @@
             "email": "rob@rjackson.me"
         }
     ],
-    "require": {}
+    "require": {
+        "symfony/console": "^6.1"
+    }
 }

@@ -2,12 +2,14 @@
 
 namespace Rjackson\CsvNameParser\Data;
 
-class Person
+use JsonSerializable;
+
+class Person implements JsonSerializable
 {
-  protected string $title;
-  protected ?string $firstName;
-  protected ?string $initial;
-  protected string $lastName;
+  public readonly string $title;
+  public readonly ?string $firstName;
+  public readonly ?string $initial;
+  public readonly string $lastName;
 
   public function __construct(string $title, ?string $firstName, ?string $initial, string $lastName)
   {
@@ -15,5 +17,15 @@ class Person
     $this->firstName = $firstName;
     $this->initial = $initial;
     $this->lastName = $lastName;
+  }
+
+  public function jsonSerialize(): mixed
+  {
+    return [
+      "title" => $this->title,
+      "first_name" => $this->firstName,
+      "initial" => $this->initial,
+      "last_name" => $this->lastName,
+    ];
   }
 }
