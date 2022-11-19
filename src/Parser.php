@@ -31,11 +31,28 @@ class Parser
    * Parse free-text input and try to extract a Person record from it.
    *
    * At present, this only supports Western name formats.
+   *
+   * @return Person[]|null
    */
-  function parse(string $input): ?Person
+  function parse(string $input): array|null
   {
-    $input = trim($input);
+    $person = $this->parseSingle($input);
 
+    if (!$person instanceof Person) {
+      return null;
+    }
+
+    return [$person];
+  }
+
+  /**
+   * Parse free-text input which we're certain only represents a single name,
+   * and try to extract a Person record from it
+   *
+   * At present, this only supports Western name formats.
+   */
+  function parseSingle(string $input): ?Person
+  {
     foreach ($this->patterns as $pattern) {
       preg_match($pattern, $input, $matches);
       if (empty($matches)) {
