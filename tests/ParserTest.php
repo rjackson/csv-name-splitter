@@ -40,8 +40,8 @@ class ParserTest extends TestCase
       "Fully formed" => ["Mr John Smith", new Person("Mr", "John", "J", "Smith")],
       "Initial, variation 1" => ["Mrs J. Smith", new Person("Mrs", null, "J", "Smith")],
       "Initial, variation 2" => ["Mx J Smith", new Person("Mx", null, "J", "Smith")],
-      // "Title, variation 1" => ["Mrs. Jennifer Smith", new Person("Mrs", "Jennifer", "J", "Smith")],
-      // "Title, variation 2" => ["Dr Julie Smith", new Person("Dr", "Julie", "J", "Smith")],
+      "Title, variation 1" => ["Mrs. Jennifer Smith", new Person("Mrs", "Jennifer", "J", "Smith")],
+      "Title, variation 2" => ["Dr Julie Smith", new Person("Dr", "Julie", "J", "Smith")],
       //   "Required fields only" => ["Mr Smith", new Person("Mr", null, "J", "Smith")],
     ];
   }
