@@ -106,5 +106,17 @@
         "first_name": null,
         "initial": "F",
         "last_name": "Fredrickson"
+    },
+    {
+        "title": "Chef",
+        "first_name": "Jacques",
+        "initial": "J",
+        "last_name": "P\u00e9pin"
+    },
+    {
+        "title": "Mr",
+        "first_name": "Chris",
+        "initial": "C",
+        "last_name": "O'Dowd"
     }
 ]

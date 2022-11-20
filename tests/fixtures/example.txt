@@ -19,4 +19,6 @@
 | Prof   | Alex       | A       | Brogan          |
 | Mrs    | Faye       | F       | Hughes-Eastwood |
 | Mr     |            | F       | Fredrickson     |
+| Chef   | Jacques    | J       | Pépin           |
+| Mr     | Chris      | C       | O'Dowd          |
 +--------+------------+---------+-----------------+

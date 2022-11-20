@@ -17,7 +17,7 @@ class Parser
    * - middleName is optional, and either a full word or initialied
    * - lastName is mandatory
    */
-  protected string $namePattern = "/^(?<title>\w+)\.?\s+?((?<firstName>\w+)\.?\s+)?((?<middleName>\w+)\.?\s+)?(?<lastName>[\w\-–—]+)$/";
+  protected string $namePattern = "/^(?<title>[^\s\.]+)\.?\s+?((?<firstName>[^\s\.]+)\.?\s+)?((?<middleName>[^\s\.]+)\.?\s+)?(?<lastName>[^\s\.]+)$/";
 
   /**
    * Parse a CSV of free-text names and resolve into Person records

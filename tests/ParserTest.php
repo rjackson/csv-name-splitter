@@ -60,7 +60,7 @@ class ParserTest extends TestCase
     $this->assertEmpty($persons);
 
     $persons = $this->parser->parseCsv(__DIR__ . "/fixtures/example.csv");
-    $this->assertCount(18, $persons);
+    $this->assertCount(20, $persons);
 
     // Some hardcoded spot checks
     $this->assertEquals($persons[0], new Person("Mr", "John", "J", "Smith"));
@@ -84,6 +84,8 @@ class ParserTest extends TestCase
       "Ignore middle names, variation 1" => ["Mr John Edward Smith", new Person("Mr", "John", "J", "Smith")],
       "Ignore middle names, variation 2" => ["Mr John E Smith", new Person("Mr", "John", "J", "Smith")],
       "Ignore middle names, variation 3" => ["Mr John E. Smith", new Person("Mr", "John", "J", "Smith")],
+      "Diacritics" => ["Chef Jacques Pépin", new Person("Chef", "Jacques", "J", "Pépin")],
+      "Punctuated names" => ["Mr Chris O'Dowd", new Person("Mr", "Chris", "C", "O'Dowd")],
     ];
   }
 
